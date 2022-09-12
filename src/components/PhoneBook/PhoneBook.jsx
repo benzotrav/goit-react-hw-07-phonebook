@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { PhoneBookForm } from '../PhoneBookForm/PhoneBookForm';
 import { ContactList } from '../ContactsList/ContactsList';
 import { Filter } from '../Filter/Filter';
@@ -10,6 +12,7 @@ export const PhoneBook = () => {
       <PhoneBookForm />
       <Filter />
       <ContactList />
+      <ToastContainer />
     </Box>
   );
 };

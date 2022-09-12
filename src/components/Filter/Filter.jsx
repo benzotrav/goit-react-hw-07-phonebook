@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { changeFilter } from '../../redux/store';
 import { InputLable, InputBox } from './Filter.styled';
+import { changeFilter } from '../../redux/store';
+import { useDispatch } from 'react-redux';
 
 export const Filter = () => {
   const dispatch = useDispatch();

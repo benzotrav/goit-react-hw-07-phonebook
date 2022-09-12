@@ -25,7 +25,7 @@ export const InputBox = styled(Field)`
 `;
 
 export const SubmitBtn = styled.button`
-  width: 140px;
+  width: 150px;
   margin-top: 15px;
   padding: 4px;
   color: black;
@@ -36,6 +36,6 @@ export const SubmitBtn = styled.button`
   :hover,
   :focus {
     color: white;
-    background-color: green;
+    background-color: blue;
   }
 `;

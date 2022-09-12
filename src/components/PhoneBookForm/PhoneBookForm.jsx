@@ -1,22 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { nanoid } from 'nanoid';
 import { Formik } from 'formik';
-import { addContact } from '../../redux/store';
+import { toast } from 'react-toastify';
 import {
-  FormBox,
-  InputName,
-  InputBox,
-  SubmitBtn,
-} from './PhoneBookForm.styled';
+  useAddContactMutation,
+  useGetContactsQuery,
+} from '../../redux/contactsApi';
+import { FormBox, InputName, InputBox, SubmitBtn } from './PhoneBookForm.styled';
+import { LoadingButton } from '@mui/lab';
 
 export const PhoneBookForm = () => {
-  const contacts = useSelector(state => state.contacts.items);
-  const dispatch = useDispatch();
+  const [addContact, { isLoading }] = useAddContactMutation();
+  const { data: contacts } = useGetContactsQuery();
 
-  const submitForm = (e, { resetForm }) => {
-    const { name, number } = e;
-
+  const submitForm = ({ name, number }, { resetForm }) => {
     const isInclude = contacts.find(
       person => person.name.toLowerCase() === name.toLowerCase()
     );
@@ -26,15 +21,12 @@ export const PhoneBookForm = () => {
       return;
     }
 
-    const profile = {
-      id: nanoid(),
-      name,
-      number,
-    };
-
-    dispatch(addContact(profile));
-
-    resetForm();
+    try {
+      addContact({ name, phone: number });
+      resetForm();
+    } catch (error) {
+      toast(error.message);
+    }
   };
 
   return (
@@ -60,7 +52,17 @@ export const PhoneBookForm = () => {
             required
           />
         </InputName>
-        <SubmitBtn type="submit">Add constact</SubmitBtn>
+        <SubmitBtn>
+          <LoadingButton
+            type="submit"
+            loading={isLoading}
+            loadingPosition="end"
+            variant="contained"
+            disabled={isLoading}
+          >
+            Add contact
+          </LoadingButton>
+        </SubmitBtn>
       </FormBox>
     </Formik>
   );

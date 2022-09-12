@@ -31,3 +31,14 @@ export const RemoveBtn = styled.button`
     background-color: red;
   }
 `;
+
+
+export const TextWrap = styled.div`
+  display: inline-flex;
+  align-items: center;
+  width: 300px;
+`;
+
+export const Text = styled.p`
+  margin-left: 10px;
+`;

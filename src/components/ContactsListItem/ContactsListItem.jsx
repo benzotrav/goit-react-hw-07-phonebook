@@ -1,21 +1,34 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { Item, RemoveBtn } from './ContactListItem.styled';
-import { deleteContact } from '../../redux/store';
+import { useDeleteContactMutation } from '../../redux/contactsApi';
+import { LoadingButton } from '@mui/lab';
+import { Item, TextWrap, Text } from './ContactListItem.styled';
 
 export const ContactListItem = ({ contact }) => {
-  const dispatch = useDispatch();
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
   return (
     <Item>
-      <p>name: {contact.name}</p>
-      <p>number: {contact.number}</p>
-      <RemoveBtn
+      <TextWrap>
+        <Text>
+          name: <b>{contact.name}</b>
+        </Text>
+      </TextWrap>
+      <TextWrap>
+        <Text>
+          number: <b>{contact.phone}</b>
+        </Text>
+      </TextWrap>
+      <LoadingButton
         type="button"
-        onClick={() => dispatch(deleteContact(contact.id))}
+        onClick={() => deleteContact(contact.id)}
+        color={'error'}
+        loading={isLoading}
+        loadingPosition="end"
+        variant="outlined"
+        disabled={isLoading}
       >
         Delete
-      </RemoveBtn>
+      </LoadingButton>
     </Item>
   );
 };
