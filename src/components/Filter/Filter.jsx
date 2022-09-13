@@ -1,5 +1,5 @@
 import { InputLable, InputBox } from './Filter.styled';
-import { changeFilter } from '../../redux/store';
+import { changeFilter } from 'redux/createslice';
 import { useDispatch } from 'react-redux';
 
 export const Filter = () => {
